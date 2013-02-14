@@ -62,6 +62,7 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 @synthesize textField = _textField;
 @synthesize label = _label;
 @synthesize delegate = _delegate;
+@synthesize isEditable = _isEditable;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -86,7 +87,14 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
     return self;
 }
 
+- (void)setIsEditable:(BOOL)isEditable
+{
+    [self.textField setEnabled:isEditable];
+}
+
 - (void)commonSetup {
+    self.isEditable = YES;
+    
     CGRect frame = self.frame;
     [self setBackgroundColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]];
     
@@ -317,7 +325,8 @@ NSString *const JSDeletedTokenKey = @"JSDeletedTokenKey";
 		else {
 			BOOL toggleValue = (token.isToggled)?NO:YES;
 			[token setToggled:toggleValue];
-			[token becomeFirstResponder];
+            if(self.isEditable)
+                [token becomeFirstResponder];
 			if ([self.delegate respondsToSelector:@selector(tokenField:tokenTouchedUpInside:)]) {
 				[self.delegate tokenField:self tokenTouchedUpInside:token];
 			}

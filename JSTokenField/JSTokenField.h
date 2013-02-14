@@ -47,12 +47,15 @@ extern NSString *const JSDeletedTokenKey;
 	JSTokenButton *_deletedToken;
 	
 	UILabel *_label;
+    
+    BOOL _isEditable;
 }
 
 @property (nonatomic, readonly) UITextField *textField;
 @property (nonatomic, retain) UILabel *label;
 @property (nonatomic, readonly, copy) NSMutableArray *tokens;
 @property (nonatomic, assign) id <JSTokenFieldDelegate> delegate;
+@property (nonatomic, assign) BOOL isEditable;
 
 - (void)addTokenWithTitle:(NSString *)string representedObject:(id)obj;
 - (void)removeTokenForString:(NSString *)string;
